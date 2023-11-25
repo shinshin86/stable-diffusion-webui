@@ -24,6 +24,7 @@ class ScriptSeed(scripts.ScriptBuiltinUI):
 
     def ui(self, is_img2img):
         with gr.Row(elem_id=self.elem_id("seed_row")):
+            # workaround for https://github.com/gradio-app/gradio/issues/5354
             self.seed = gr.Textbox(label='Seed', value="-1", elem_id=self.elem_id("seed"), min_width=100)
 
             random_seed = ToolButton(ui.random_symbol, elem_id=self.elem_id("random_seed"), tooltip="Set seed to -1, which will cause a new random number to be used every time")
@@ -33,7 +34,8 @@ class ScriptSeed(scripts.ScriptBuiltinUI):
 
         with gr.Group(visible=False, elem_id=self.elem_id("seed_extras")) as seed_extras:
             with gr.Row(elem_id=self.elem_id("subseed_row")):
-                subseed = gr.Number(label='Variation seed', value=-1, elem_id=self.elem_id("subseed"), precision=0)
+                # workaround for https://github.com/gradio-app/gradio/issues/5354
+                subseed = gr.Textbox(label='Variation seed', value=-1, elem_id=self.elem_id("subseed"), precision=0)
                 random_subseed = ToolButton(ui.random_symbol, elem_id=self.elem_id("random_subseed"))
                 reuse_subseed = ToolButton(ui.reuse_symbol, elem_id=self.elem_id("reuse_subseed"))
                 subseed_strength = gr.Slider(label='Variation strength', value=0.0, minimum=0, maximum=1, step=0.01, elem_id=self.elem_id("subseed_strength"))
